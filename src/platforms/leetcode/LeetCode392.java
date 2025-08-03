@@ -2,12 +2,12 @@ package platforms.leetcode;
 
 public class LeetCode392 {
     public static void main(String[] args) {
-        System.out.println(isSubsequence("abc", "ahbgdc"));
-        System.out.println(isSubsequence("axc", "ahbgdc"));
+        System.out.println(isSubsequenceS2("abc", "ahbgdc"));
+        System.out.println(isSubsequenceS2("axc", "ahbgdc"));
     }
 
-    // Runtime 1ms O(n) | Memory 41.72mb O(1)
-    public static boolean isSubsequence(String s, String t) {
+    // Runtime 1ms O(n) | Memory 41.38mb O(1)
+    public static boolean isSubsequenceS1(String s, String t) {
         if(s.isEmpty()) return true;
         if(t.isEmpty()) return false;
         if(s.length() > t.length()) return false;
@@ -28,5 +28,27 @@ public class LeetCode392 {
         }
 
         return true;
+    }
+
+    // Runtime 2ms O(n) | Memory 41.37mb O(1)
+    public static boolean isSubsequenceS2(String s, String t) {
+        if(s.isEmpty()) return true;
+        if(t.isEmpty()) return false;
+        if(s.length() > t.length()) return false;
+
+        int sIndex = 0;
+        int tIndex = 0;
+
+        while(sIndex < s.length() && tIndex < t.length()) {
+            if(s.charAt(sIndex) == t.charAt(tIndex)) {
+                sIndex++;
+            }
+
+            if ((t.length() - tIndex) < (s.length() - sIndex)) return false;
+
+            tIndex++;
+        }
+
+        return sIndex == s.length();
     }
 }
